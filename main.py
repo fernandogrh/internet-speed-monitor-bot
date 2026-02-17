@@ -11,6 +11,7 @@ PROMISED_DOWN = float(os.getenv("PROMISED_DOWN"))
 PROMISED_UP = float(os.getenv("PROMISED_UP"))
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+ISP_EMAIL = os.getenv("ISP_EMAIL")
 
 class InternetSpeedBot:
 
@@ -60,7 +61,7 @@ class InternetSpeedBot:
                 connection.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
                 connection.sendmail(
                     from_addr=EMAIL_ADDRESS,
-                    to_addrs=EMAIL_ADDRESS,
+                    to_addrs=ISP_EMAIL,
                     msg=f"Subject: 🚨Internet Speed Alert.\n\n{message}".encode("utf-8")
                 )
                 print(f"Download Speed: {self.down} Mbps")
