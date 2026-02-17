@@ -84,8 +84,9 @@ This decision ensures:
 
 Create a .env file:
 
-    EMAIL_ADDRESS=your_email@gmail.com
-    EMAIL_PASSWORD=your_app_password
+    EMAIL_ADDRESS="your_email@gmail.com"
+    EMAIL_PASSWORD="your_app_password"
+    ISP_EMAIL="isp@example.com"
     PROMISED_DOWN=100
     PROMISED_UP=50
 
