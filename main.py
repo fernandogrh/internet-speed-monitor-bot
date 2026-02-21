@@ -22,7 +22,7 @@ class InternetSpeedBot:
         chrome_options.add_argument("--disable-gpu")
         chrome_options.add_argument("--window-size=1920,1080")
         self.driver = webdriver.Chrome(options=chrome_options)
-        self.wait = WebDriverWait(self.driver, 60)
+        self.wait = WebDriverWait(self.driver, 70)
         self.up = 0
         self.down = 0
 
@@ -53,7 +53,7 @@ class InternetSpeedBot:
         pass
 
     def send_email_alert(self):
-        message = f"Internet speed is below the promised threshold.\n\nExpected Download: {PROMISED_DOWN} Mbps\nExpected Upload: {PROMISED_UP} Mbps\n\nActual Download: {self.down} Mbps\nActual Upload: {self.up} Mbps"
+        message = (f"Hey Internet Service Provider my internet is running slow, on my contract it was accorded that I will receive {PROMISED_DOWN} Mbps of download data and {PROMISED_UP} Mbps of upload data.\n\nMy actual Download: {self.down} Mbps\nMy actual Upload: {self.up} Mbps\n\nPlease solve this issue as soon as possible.")
 
         try:
             with smtplib.SMTP("smtp.gmail.com", 587) as connection:
