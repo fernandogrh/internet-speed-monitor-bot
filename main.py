@@ -7,17 +7,23 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-PROMISED_DOWN = float(os.getenv("PROMISED_DOWN"))
-PROMISED_UP = float(os.getenv("PROMISED_UP"))
+
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 ISP_EMAIL = os.getenv("ISP_EMAIL")
+promised_down = os.getenv("PROMISED_DOWN")
+promised_up = os.getenv("PROMISED_UP")
+
+if not all([promised_down, promised_up, EMAIL_ADDRESS, EMAIL_PASSWORD, ISP_EMAIL]):
+    raise Exception("Missing one or more environment variables.")
+
+PROMISED_DOWN = float(promised_down)
+PROMISED_UP = float(promised_up)
 
 class InternetSpeedBot:
 
     def __init__(self):
         chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_experimental_option("detach", True)
         chrome_options.add_argument("--headless=new")
         chrome_options.add_argument("--disable-gpu")
         chrome_options.add_argument("--window-size=1920,1080")
@@ -31,11 +37,10 @@ class InternetSpeedBot:
             self.driver.get("https://www.speedtest.net/")
             accept_button = self.wait.until(ec.element_to_be_clickable((By.ID, "onetrust-accept-btn-handler")))
             accept_button.click()
-
             activate_test_button = self.wait.until(ec.element_to_be_clickable((By.CSS_SELECTOR, ".start-text")))
             activate_test_button.click()
 
-            self.wait.until(lambda d: (d.find_element(By.CSS_SELECTOR, "span.download-speed").text not in ("", "—") and d.find_element(By.CSS_SELECTOR, "span.upload-speed").text not in ("", "—")))
+            self.wait.until(lambda d: (d.find_element(By.CSS_SELECTOR, "span.result-data-large.number.result-data-value.download-speed").text not in ("", "—") and d.find_element(By.CSS_SELECTOR, "span.result-data-large.number.result-data-value.upload-speed").text not in ("", "—")))
 
             upload_text = self.driver.find_element(By.CSS_SELECTOR, value="span.result-data-large.number.result-data-value.upload-speed").text
             download_text = self.driver.find_element(By.CSS_SELECTOR, value="span.result-data-large.number.result-data-value.download-speed").text
@@ -70,7 +75,6 @@ class InternetSpeedBot:
         except Exception as e:
             print("❌ Failed to send email", e)
 
-
 if __name__ == "__main__":
     bot = InternetSpeedBot()
     bot.get_internet_speed()
@@ -80,4 +84,3 @@ if __name__ == "__main__":
         print("✅ Internet speed is within the expected range")
         print(f"Download Speed: {bot.down} Mbps")
         print(f"Upload Speed: {bot.up} Mbps")
-

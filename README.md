@@ -1,11 +1,12 @@
-![Python](https://img.shields.io/badge/Python-3.14-3776AB?logo=python&logoColor=white)
+# 🚀 Internet Speed Monitor & Alert Bot
+
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)
 ![Selenium](https://img.shields.io/badge/Selenium-WebDriver-43B02A?logo=selenium&logoColor=white)
 ![Automation](https://img.shields.io/badge/Type-Browser_Automation-orange)
 ![Security](https://img.shields.io/badge/Credentials-Environment_Variables-blue)
 ![Email Alerts](https://img.shields.io/badge/Alerts-SMTP_TLS-red)
 ![Status](https://img.shields.io/badge/Status-Stable-success)
 
-# 🚀 Internet Speed Monitor & Alert Bot
 ### A Python automation project that measures real-time internet speed using Selenium and automatically sends an email alert if the results fall below the promised ISP contract threshold.
 
 ## 📌 Project Overview
@@ -64,7 +65,7 @@ The original version attempted to automate posting complaints directly to X (Twi
 
 Due to modern anti-bot protections and login flow instability, this feature was intentionally removed and replaced with a reliable SMTP-based email alert system.
 
-This decision ensures:
+This design decision improves:
 
 - Ethical automation
 
@@ -77,12 +78,17 @@ This decision ensures:
     │
     ├── main.py
     ├── .env.example
+    ├── requirements.txt
     ├── .gitignore
     └── README.md
 
-## 🔐 Environment Variables
+## 🧾 Setup Instructions
 
-Create a .env file:
+1. Copy `.env.example` and rename it to `.env`.
+
+
+2. Open `.env` and add your credentials:
+
 
     EMAIL_ADDRESS="your_email@gmail.com"
     EMAIL_PASSWORD="your_app_password"
@@ -90,8 +96,16 @@ Create a .env file:
     PROMISED_DOWN=100
     PROMISED_UP=50
 
+3. Save the file and run the script.
 
 ⚠️ Use a Gmail App Password (not your real password).
+
+## ▶️ How to Run
+
+    git clone https://github.com/fernandogrh/internet-speed-monitor-bot.git
+    cd internet-speed-monitor-bot
+    pip install -r requirements.txt
+    python main.py
 
 ## 📊 Example Output
     Download Speed: 128.45 Mbps
